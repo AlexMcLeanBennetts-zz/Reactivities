@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import axios from 'axios';
+import { IActivity } from './models/activity';
 
 
 function App() {
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState<IActivity[]>([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/activities')
+    axios.get<IActivity[]>('http://localhost:5000/api/activities')
       .then(res => {
         setActivities(res.data);
       })
@@ -16,10 +15,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <ul>
-          {activities.map((activity: any) => (
-            <li key={activity.id}></li>
+          {activities.map((activity) => (
+            <li key={activity.id}>
+              {activity.title}
+            </li>
           ))}
         </ul>
       </header>
