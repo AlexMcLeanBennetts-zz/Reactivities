@@ -7,10 +7,10 @@ import AcitvityForm from "./activities/dashboard/form/ActivityForm";
 function ActivityDashboard() {
 
     const { activityStore } = useStore();
-    const { activities } = activityStore;
+    const { activitiesByDate } = activityStore;
 
     function thereAreActivities(): boolean {
-        return activities.length > 0 ? true : false
+        return activitiesByDate.length > 0 ? true : false
     }
     return (
         <div className="flex gap-6">

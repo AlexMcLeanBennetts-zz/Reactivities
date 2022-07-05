@@ -5,7 +5,7 @@ import { SyntheticEvent, useState } from "react";
 
 function ActivityList() {
     const { activityStore } = useStore();
-    const { activities, loading, deleteActivity, selectActivity } = activityStore
+    const { activitiesByDate, loading, deleteActivity, selectActivity } = activityStore
     const [target, setTarget] = useState('')
 
     const handleActivityDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
@@ -15,7 +15,7 @@ function ActivityList() {
 
     return (
         <ul className="bg-white divide-y px-8 rounded-md">
-            {activities.map((activity) => (
+            {activitiesByDate.map((activity) => (
                 <li key={activity.id} className="py-5">
                     <h2 className="h2Title">{activity.title}</h2>
                     <p className="metaTag">{activity.date}</p>
