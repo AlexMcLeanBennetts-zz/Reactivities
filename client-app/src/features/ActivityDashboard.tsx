@@ -13,6 +13,7 @@ interface Props {
     closeForm: () => void;
     createOrEdit: (activity: IActivity) => void;
     deleteActivity: (id: string) => void;
+    submitting: boolean
 }
 
 function ActivityDashboard({
@@ -24,7 +25,8 @@ function ActivityDashboard({
     openForm,
     closeForm,
     createOrEdit,
-    deleteActivity
+    deleteActivity,
+    submitting
 }: Props) {
     function thereAreActivities(): boolean {
         return activities.length > 0 ? true : false
@@ -33,7 +35,7 @@ function ActivityDashboard({
         <div className="flex gap-6">
             <div className="w-7/12">
                 {thereAreActivities() ?
-                    <ActivityList activities={activities} selectActivity={selectActivity} deleteActivity={deleteActivity} />
+                    <ActivityList activities={activities} selectActivity={selectActivity} deleteActivity={deleteActivity} submitting={submitting} />
                     :
                     <p>There are no events to display</p>
                 }
@@ -49,7 +51,7 @@ function ActivityDashboard({
                     </>
                 }
                 {editMode &&
-                    <AcitvityForm closeForm={closeForm} activity={selectedActivity} createOrEdit={createOrEdit} />
+                    <AcitvityForm closeForm={closeForm} activity={selectedActivity} createOrEdit={createOrEdit} submitting={submitting} />
                 }
             </div>
         </div>

@@ -1,13 +1,15 @@
 import { IActivity } from "app/models/activity";
+import Button from "features/components/Button";
 import React, { useState } from "react"
 
 interface Props {
     closeForm: () => void;
     activity: IActivity | undefined;
     createOrEdit: (activity: IActivity) => void;
+    submitting: boolean;
 }
 
-export default function AcitvityForm({ closeForm, activity, createOrEdit }: Props) {
+export default function AcitvityForm({ closeForm, activity, createOrEdit, submitting }: Props) {
     const initialState: IActivity = activity ?? {
         id: '',
         title: '',
@@ -96,20 +98,21 @@ export default function AcitvityForm({ closeForm, activity, createOrEdit }: Prop
                     />
                 </div>
                 <div className="flex justify-between">
-                    <button
+                    <Button
                         type="submit"
                         className="w-5/12 border-2 rounded-md border-green-500  bg-green-500 text-white py-1"
                         onClick={() => handleSubmit()}
+                        isLoading={submitting}
                     >
                         Submit
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                         type="button"
                         onClick={() => closeForm()}
                         className="w-5/12 border-2 rounded-md border-slate-400 py-1"
                     >
                         Cancel
-                    </button>
+                    </Button>
 
                 </div>
             </form>
