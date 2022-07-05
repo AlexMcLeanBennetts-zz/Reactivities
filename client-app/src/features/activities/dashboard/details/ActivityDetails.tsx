@@ -1,16 +1,15 @@
-import { IActivity } from "app/models/activity"
+import { useStore } from "app/stores/store"
+import Spinner from "features/components/Spinner";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-    activity: IActivity
-    cancelSelectActivity: () => void;
-    openForm: (id: string) => void;
-}
+function ActivityDetails() {
 
-export default function ActivityDetails({
-    activity,
-    cancelSelectActivity,
-    openForm
-}: Props) {
+    const { activityStore } = useStore();
+
+    const { selectedActivity: activity, openForm, cancelSelectedActivity } = activityStore;
+
+    if (!activity) return <Spinner />;
+
     return (
         <section className="bg-white rounded-md overflow-hidden">
             <img src={`/images/categoryImages/${activity.category}.jpg`} alt={activity.category} />
@@ -29,7 +28,7 @@ export default function ActivityDetails({
                     </button>
                     <button
                         className="w-1/2 border-2 rounded-r-md border-slate-400 py-1"
-                        onClick={() => cancelSelectActivity()}
+                        onClick={() => cancelSelectedActivity()}
                     >Cancel</button>
 
                 </div>
@@ -38,3 +37,5 @@ export default function ActivityDetails({
         </section>
     )
 }
+
+export default observer(ActivityDetails);

@@ -1,16 +1,14 @@
 import { IActivity } from "app/models/activity";
+import { useStore } from "app/stores/store";
 import Button from "features/components/Button";
+import { observer } from "mobx-react-lite";
 import React, { useState } from "react"
 
-interface Props {
-    closeForm: () => void;
-    activity: IActivity | undefined;
-    createOrEdit: (activity: IActivity) => void;
-    submitting: boolean;
-}
+function AcitvityForm() {
+    const { activityStore } = useStore();
+    const { selectedActivity, closeForm, createActivity, updateActivity, loading } = activityStore;
 
-export default function AcitvityForm({ closeForm, activity, createOrEdit, submitting }: Props) {
-    const initialState: IActivity = activity ?? {
+    const initialState: IActivity = selectedActivity ?? {
         id: '',
         title: '',
         description: '',
@@ -31,7 +29,11 @@ export default function AcitvityForm({ closeForm, activity, createOrEdit, submit
     }
 
     const handleSubmit = () => {
-        createOrEdit(formState)
+        if (formState.id === '') {
+            createActivity(formState);
+        } else {
+            updateActivity(formState);
+        }
     }
 
     return (
@@ -102,7 +104,7 @@ export default function AcitvityForm({ closeForm, activity, createOrEdit, submit
                         type="submit"
                         className="w-5/12 border-2 rounded-md border-green-500  bg-green-500 text-white py-1"
                         onClick={() => handleSubmit()}
-                        isLoading={submitting}
+                        isLoading={loading}
                     >
                         Submit
                     </Button>
@@ -119,3 +121,5 @@ export default function AcitvityForm({ closeForm, activity, createOrEdit, submit
         </section>
     )
 }
+
+export default observer(AcitvityForm);

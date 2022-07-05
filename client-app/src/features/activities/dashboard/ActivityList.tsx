@@ -1,21 +1,18 @@
-import { IActivity } from "app/models/activity";
+import { useStore } from "app/stores/store";
 import Button from "features/components/Button";
+import { observer } from "mobx-react-lite";
 import { SyntheticEvent, useState } from "react";
 
-interface Props {
-    activities: IActivity[];
-    selectActivity: (id: string) => void;
-    deleteActivity: (id: string) => void;
-    submitting: boolean
-}
-
-export default function ActivityList({ activities, selectActivity, deleteActivity, submitting }: Props) {
+function ActivityList() {
+    const { activityStore } = useStore();
+    const { activities, loading, deleteActivity, selectActivity } = activityStore
     const [target, setTarget] = useState('')
+
     const handleActivityDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
         setTarget(e.currentTarget.name);
         deleteActivity(id);
-
     }
+
     return (
         <ul className="bg-white divide-y px-8 rounded-md">
             {activities.map((activity) => (
@@ -32,7 +29,7 @@ export default function ActivityList({ activities, selectActivity, deleteActivit
                                 className="bg-red-500 py-2 px-3 rounded-md mr-2 text-white"
                                 onClick={(e) => handleActivityDelete(e, activity.id)}
                                 name={activity.id}
-                                isLoading={submitting && target === activity.id}
+                                isLoading={loading && target === activity.id}
                             >
                                 Delete
                             </Button>
@@ -51,3 +48,5 @@ export default function ActivityList({ activities, selectActivity, deleteActivit
         </ul>
     )
 }
+
+export default observer(ActivityList)
