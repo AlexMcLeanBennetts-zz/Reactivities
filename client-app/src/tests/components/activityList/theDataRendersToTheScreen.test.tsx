@@ -15,7 +15,7 @@ describe('When there is data', () => {
         expect(activityTitle).toBeInTheDocument();
     })
     it('renders the activity date to the screen', async () => {
-        const activityDate = await screen.findByText(testData[0].date)
+        const activityDate = await screen.findByText(testData[0].date.split('T')[0])
         expect(activityDate).toBeInTheDocument();
     })
     it('renders the activity description to the screen', async () => {
