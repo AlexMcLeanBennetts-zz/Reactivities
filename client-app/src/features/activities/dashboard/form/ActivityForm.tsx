@@ -36,7 +36,7 @@ export default function AcitvityForm({ closeForm, activity, createOrEdit }: Prop
         <section>
             <form className="bg-white p-4 mt-5 rounded-lg">
                 <div className="formContainer">
-                    <label>Title</label>
+                    <label htmlFor="title">Title</label>
                     <input
                         type="text"
                         id="title"
@@ -46,7 +46,7 @@ export default function AcitvityForm({ closeForm, activity, createOrEdit }: Prop
                     />
                 </div>
                 <div className="formContainer">
-                    <label>Description</label>
+                    <label htmlFor="description">Description</label>
                     <textarea
                         id="description"
                         name="description"
@@ -56,7 +56,7 @@ export default function AcitvityForm({ closeForm, activity, createOrEdit }: Prop
                     </textarea>
                 </div>
                 <div className="formContainer">
-                    <label>Category</label>
+                    <label htmlFor="category">Category</label>
                     <input
                         type="text"
                         id="category"
@@ -66,9 +66,9 @@ export default function AcitvityForm({ closeForm, activity, createOrEdit }: Prop
                     />
                 </div>
                 <div className="formContainer">
-                    <label>Date</label>
+                    <label htmlFor="date">Date</label>
                     <input
-                        type="text"
+                        type="date"
                         id="date"
                         name="date"
                         value={formState.date}
@@ -76,7 +76,7 @@ export default function AcitvityForm({ closeForm, activity, createOrEdit }: Prop
                     />
                 </div>
                 <div className="formContainer">
-                    <label>City</label>
+                    <label htmlFor="city">City</label>
                     <input
                         type="text"
                         id="city"
@@ -86,7 +86,7 @@ export default function AcitvityForm({ closeForm, activity, createOrEdit }: Prop
                     />
                 </div>
                 <div className="formContainer">
-                    <label>Venue</label>
+                    <label htmlFor="venue">Venue</label>
                     <input
                         type="text"
                         id="venue"

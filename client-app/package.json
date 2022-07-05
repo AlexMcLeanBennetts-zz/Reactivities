@@ -27,7 +27,15 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "testing-library/no-render-in-setup": [
+        "error",
+        {
+          "allowTestingFrameworkSetupHook": "beforeEach"
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [

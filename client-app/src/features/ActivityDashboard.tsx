@@ -26,11 +26,17 @@ function ActivityDashboard({
     createOrEdit,
     deleteActivity
 }: Props) {
+    function thereAreActivities(): boolean {
+        return activities.length > 0 ? true : false
+    }
     return (
         <div className="flex gap-6">
             <div className="w-7/12">
-
-                <ActivityList activities={activities} selectActivity={selectActivity} deleteActivity={deleteActivity} />
+                {thereAreActivities() ?
+                    <ActivityList activities={activities} selectActivity={selectActivity} deleteActivity={deleteActivity} />
+                    :
+                    <p>There are no events to display</p>
+                }
             </div>
             <div className="w-5/12">
                 {selectedActivity && !editMode &&

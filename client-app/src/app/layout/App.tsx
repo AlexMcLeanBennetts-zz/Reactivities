@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { IActivity } from 'app/models/activity';
 import NavBar from 'app/layout/NavBar';
 import ActivityDashboard from 'features/ActivityDashboard';
 import PageContainer from 'app/layout/PageContainer';
 import { v4 as uuid } from 'uuid';
+import agent from 'app/api/agent';
 
 
 function App() {
@@ -13,10 +13,14 @@ function App() {
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    axios.get<IActivity[]>('http://localhost:5000/api/activities')
-      .then(res => {
-        setActivities(res.data);
+    agent.Activities.list().then(res => {
+      let activities: IActivity[] = [];
+      res.forEach(activity => {
+        activity.date = activity.date.split('T')[0];
+        activities.push(activity)
       })
+      setActivities(activities);
+    })
   }, [])
 
   function handleSelectedActivity(id: string) {
@@ -43,6 +47,7 @@ function App() {
   function handleDeleteActivity(id: string) {
     setActivities([...activities.filter(x => x.id !== id)]);
   }
+
   return (
 
     <div className="App">
