@@ -1,14 +1,25 @@
+import { v4 as uuid } from 'uuid';
+
 import { IActivity } from "app/models/activity";
 import { useStore } from "app/stores/store";
 import Button from "features/components/Button";
+import Spinner from "features/components/Spinner";
 import { observer } from "mobx-react-lite";
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router";
 
 function AcitvityForm() {
+    const navigate = useNavigate();
     const { activityStore } = useStore();
-    const { selectedActivity, closeForm, createActivity, updateActivity, loading } = activityStore;
+    const {
+        createActivity,
+        updateActivity,
+        loading,
+        loadActivity
+    } = activityStore;
+    const { id } = useParams<{ id: string }>();
 
-    const initialState: IActivity = selectedActivity ?? {
+    const initialState = {
         id: '',
         title: '',
         description: '',
@@ -20,6 +31,17 @@ function AcitvityForm() {
 
     const [formState, setFormState] = useState<IActivity>(initialState);
 
+    useEffect(() => {
+        if (id) {
+            loadActivity(id)
+                .then(activity => setFormState(activity!))
+        } else {
+            setFormState(initialState)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, loadActivity])
+
+
     const handleFormChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.currentTarget;
         setFormState({
@@ -30,11 +52,19 @@ function AcitvityForm() {
 
     const handleSubmit = () => {
         if (formState.id === '') {
-            createActivity(formState);
+            let newActivity = {
+                ...formState,
+                id: uuid()
+            }
+            createActivity(newActivity);
+            navigate(`/activities/${newActivity.id}`)
         } else {
             updateActivity(formState);
+            navigate(`/activities/${formState.id}`)
         }
     }
+
+    if (loading) return <Spinner />
 
     return (
         <section>
@@ -110,7 +140,6 @@ function AcitvityForm() {
                     </Button>
                     <Button
                         type="button"
-                        onClick={() => closeForm()}
                         className="w-5/12 border-2 rounded-md border-slate-400 py-1"
                     >
                         Cancel

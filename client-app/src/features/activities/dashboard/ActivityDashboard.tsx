@@ -1,13 +1,19 @@
 import { useStore } from "app/stores/store";
 import { observer } from "mobx-react-lite";
-import ActivityList from "./activities/dashboard/ActivityList";
-import ActivityDetails from "./activities/dashboard/details/ActivityDetails";
-import AcitvityForm from "./activities/dashboard/form/ActivityForm";
+import { useEffect } from "react";
+import ActivityList from "./ActivityList";
 
 function ActivityDashboard() {
 
     const { activityStore } = useStore();
-    const { activitiesByDate } = activityStore;
+    const { activitiesByDate, loadActivities, activityRegistry } = activityStore;
+
+
+    useEffect(() => {
+        if (activityRegistry.size <= 1) loadActivities();
+    }, [activityRegistry, loadActivities])
+
+
 
     function thereAreActivities(): boolean {
         return activitiesByDate.length > 0 ? true : false
@@ -22,12 +28,7 @@ function ActivityDashboard() {
                 }
             </div>
             <div className="w-5/12">
-                {activityStore.selectedActivity && !activityStore.editMode &&
-                    <ActivityDetails />
-                }
-                {activityStore.editMode &&
-                    <AcitvityForm />
-                }
+                <h2>Activities Filters</h2>
             </div>
         </div>
     )

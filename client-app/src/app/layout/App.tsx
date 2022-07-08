@@ -1,38 +1,47 @@
-import { useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
-
-import { useStore } from 'app/stores/store';
-
 import NavBar from 'app/layout/NavBar';
+import { v4 as uuid } from 'uuid';
 import PageContainer from 'app/layout/PageContainer';
-import ActivityDashboard from 'features/ActivityDashboard';
-import Spinner from 'features/components/Spinner';
+import ActivityDashboard from 'features/activities/dashboard/ActivityDashboard';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import HomePage from 'features/home/HomePage';
+import ActivityForm from 'features/activities/form/ActivityForm';
+import ActivityDetails from 'features/activities/details/ActivityDetails';
+import { useEffect } from 'react';
+import { useStore } from 'app/stores/store';
+import AppLayout from './AppLayout';
+
+
 
 
 function App() {
+  const location = useLocation();
   const { activityStore } = useStore();
 
-  useEffect(() => {
-    activityStore.loadActivities();
-  }, [activityStore])
 
-  if (activityStore.loadingInitial === true) return (
-    <div className='flex flex-col w-screen h-screen justify-center align-middle items-center'>
-      <Spinner />
-      <p>Loading Activities...</p>
-    </div>
-  )
 
+
+  const renderMultiRoutes = ({ element: Element, paths, ...rest }: any) =>
+    paths.map((path: string) => <Route key={location.key} path={path} {...rest} element={Element} />);
   return (
 
     <div className="App">
-      <NavBar />
-      <PageContainer>
-        <ActivityDashboard />
-      </PageContainer>
 
-    </div>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route element={<AppLayout />}>
+
+          <Route path='/activities' element={<ActivityDashboard />} />
+          <Route path='/activities/:id' element={<ActivityDetails />} />
+          {renderMultiRoutes({
+            paths: ['/createActivity', '/manage/:id'],
+            element: <ActivityForm />
+          })}
+        </Route>
+      </Routes>
+
+
+    </div >
   );
 }
 
-export default observer(App);
+export default App;

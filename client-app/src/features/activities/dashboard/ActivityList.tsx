@@ -2,10 +2,11 @@ import { useStore } from "app/stores/store";
 import Button from "features/components/Button";
 import { observer } from "mobx-react-lite";
 import { SyntheticEvent, useState } from "react";
+import { Link } from "react-router-dom";
 
 function ActivityList() {
     const { activityStore } = useStore();
-    const { activitiesByDate, loading, deleteActivity, selectActivity } = activityStore
+    const { activitiesByDate, loading, deleteActivity } = activityStore
     const [target, setTarget] = useState('')
 
     const handleActivityDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
@@ -33,13 +34,14 @@ function ActivityList() {
                             >
                                 Delete
                             </Button>
-                            <Button
-                                className="bg-[#20a7ac] py-2 px-3 rounded-md"
-                                onClick={() => selectActivity(activity.id)}
-                                type='button'
-                            >
-                                View
-                            </Button>
+                            <Link to={`/activities/${activity.id}`}>
+                                <Button
+                                    className="bg-[#20a7ac] py-2 px-3 rounded-md"
+                                    type='button'
+                                >
+                                    View
+                                </Button>
+                            </Link>
 
                         </div>
                     </div>

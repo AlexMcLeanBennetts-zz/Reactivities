@@ -3,7 +3,7 @@ import Spinner from "./Spinner";
 type ButtonTypes = "button" | "submit" | "reset" | undefined
 
 interface Props {
-    onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     type: ButtonTypes;
     className: string;
     children:
