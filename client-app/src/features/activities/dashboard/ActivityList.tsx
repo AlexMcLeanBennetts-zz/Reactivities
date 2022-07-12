@@ -1,53 +1,31 @@
 import { useStore } from "app/stores/store";
-import Button from "features/components/Button";
+import { group } from "console";
 import { observer } from "mobx-react-lite";
-import { SyntheticEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import { Fragment } from "react";
+
+import ActivityListItem from "./ActivityListItem";
 
 function ActivityList() {
     const { activityStore } = useStore();
-    const { activitiesByDate, loading, deleteActivity } = activityStore
-    const [target, setTarget] = useState('')
+    const { groupedActivities } = activityStore
 
-    const handleActivityDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
-        setTarget(e.currentTarget.name);
-        deleteActivity(id);
-    }
 
     return (
-        <ul className="bg-white divide-y px-8 rounded-md">
-            {activitiesByDate.map((activity) => (
-                <li key={activity.id} className="py-5">
-                    <h2 className="h2Title">{activity.title}</h2>
-                    <p className="metaTag">{activity.date}</p>
-                    <p>{activity.description}</p>
-                    <p>{activity.city}, {activity.venue}</p>
-                    <div className="flex justify-between items-center mt-2">
-                        <p className="border-2 p-1 rounded-md">{activity.category}</p>
-                        <div>
-                            <Button
-                                type="button"
-                                className="bg-red-500 py-2 px-3 rounded-md mr-2 text-white"
-                                onClick={(e) => handleActivityDelete(e, activity.id)}
-                                name={activity.id}
-                                isLoading={loading && target === activity.id}
-                            >
-                                Delete
-                            </Button>
-                            <Link to={`/activities/${activity.id}`}>
-                                <Button
-                                    className="bg-[#20a7ac] py-2 px-3 rounded-md"
-                                    type='button'
-                                >
-                                    View
-                                </Button>
-                            </Link>
+        <>
+            {
+                groupedActivities.map(([group, activities]) => (
+                    <Fragment key={group}>
+                        <h2 className="text-sky-400 font-bold my-4">{group}</h2>
 
-                        </div>
-                    </div>
-                </li>
-            ))}
-        </ul>
+                        <ul className="">
+                            {activities.map((activity) => (
+                                <ActivityListItem key={activity.id} activity={activity} />
+                            ))}
+                        </ul>
+                    </Fragment>
+                ))
+            }
+        </>
     )
 }
 
