@@ -29,7 +29,7 @@ function ActivityDetails() {
         <section className="flex justify-between">
             <div className="w-7/12">
                 <ActivityDetailsHeader activity={activity} />
-                <ActivityDetailsInfo />
+                <ActivityDetailsInfo activity={activity} />
                 <ActivityDetailsChat />
             </div>
             <div className="w-4/12">
