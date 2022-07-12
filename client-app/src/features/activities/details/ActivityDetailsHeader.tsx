@@ -7,7 +7,7 @@ interface Props {
 
 function ActivityDetailsHeader({ activity }: Props) {
     return (
-        <div >
+        <div className="rounded-lg overflow-hidden">
             <div className="relative">
                 <img src={`/images/categoryImages/${activity.category}.jpg`} alt={activity.category} className="brightness-[30%]" />
                 <div className="absolute bottom-[5%] left-[5%] w-full h-auto text-white">
