@@ -1,6 +1,7 @@
 import { useStore } from "app/stores/store";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
+import ActivityFilters from "./ActivityFilters";
 import ActivityList from "./ActivityList";
 
 function ActivityDashboard() {
@@ -28,7 +29,7 @@ function ActivityDashboard() {
                 }
             </div>
             <div className="w-5/12">
-                <h2>Activities Filters</h2>
+                <ActivityFilters />
             </div>
         </div>
     )

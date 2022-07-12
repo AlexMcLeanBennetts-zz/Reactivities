@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
+import 'react-calendar/dist/Calendar.css'
 
 import './index.css';
 import App from './app/layout/App';

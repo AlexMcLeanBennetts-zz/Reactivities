@@ -39,3 +39,7 @@ body{
   font-weight: 700;
   font-size: 13px
 }
+
+.react-calendar {
+@apply w-full border-0 drop-shadow-md rounded-lg
+}
