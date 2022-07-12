@@ -21,7 +21,7 @@ function ActivityListItem({ activity }: Props) {
     }
 
     return (
-        <li key={activity.id} className="py-5 bg-white divide-y rounded-md border-2 border-gray-300 mb-5">
+        <li key={activity.id} className="py-5 bg-white divide-y rounded-lg border-2 border-gray-300 mb-5 drop-shadow-md">
             <div className="flex gap-5 px-8 pb-4">
                 <div><img src="images/user.png" alt="User" className="rounded-full w-20" /></div>
                 <div>
