@@ -1,9 +1,8 @@
 import { useStore } from "app/stores/store"
-import Button from "features/components/Button";
 import Spinner from "features/components/Spinner";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ActivityDetailsChat from "./ActivityDetailsChat";
 import ActivityDetailsHeader from "./ActivityDetailsHeader";
 import ActivityDetailsInfo from "./ActivityDetailsInfo";

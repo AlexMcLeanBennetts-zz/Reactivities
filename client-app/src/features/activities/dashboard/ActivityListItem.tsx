@@ -1,7 +1,5 @@
 import { IActivity } from "app/models/activity";
-import { useStore } from "app/stores/store";
 import Button from "features/components/Button";
-import { SyntheticEvent, useState } from "react";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -10,15 +8,6 @@ interface Props {
 
 function ActivityListItem({ activity }: Props) {
 
-    const [target, setTarget] = useState('')
-    const { activityStore } = useStore();
-    const { deleteActivity, loading } = activityStore;
-
-
-    const handleActivityDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
-        setTarget(e.currentTarget.name);
-        deleteActivity(id);
-    }
 
     return (
         <li key={activity.id} className="py-5 bg-white divide-y rounded-lg border-2 border-gray-300 mb-5 drop-shadow-md">
