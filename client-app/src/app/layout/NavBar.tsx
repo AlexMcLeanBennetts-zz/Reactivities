@@ -16,6 +16,11 @@ export default function NavBar() {
                         Activities
                     </NavLink>
                 </li>
+                <li className="pr-8">
+                    <NavLink to='/errors'>
+                        Errors
+                    </NavLink>
+                </li>
                 <li>
                     <NavLink to='/createActivity'>
                         <button
