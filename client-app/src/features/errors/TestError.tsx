@@ -1,7 +1,10 @@
 import axios from 'axios';
 import Button from 'features/components/Button';
+import { useState } from 'react';
+import ValidationErrors from './ValidationErrors';
 
 export default function TestErrors() {
+    const [errors, setErrors] = useState(null);
     const baseUrl = 'http://localhost:5000/api/'
 
     function handleNotFound() {
@@ -25,7 +28,7 @@ export default function TestErrors() {
     }
 
     function handleValidationError() {
-        axios.post(baseUrl + 'activities', {}).catch(err => console.log(err));
+        axios.post(baseUrl + 'activities', {}).catch(err => setErrors(err));
     }
 
     return (
@@ -41,6 +44,7 @@ export default function TestErrors() {
                     <Button type='button' className="py-3 border-solid border-2 border-blue-300 text-blue-300 w-[16%] text-sm" onClick={handleBadGuid}>Bad Guid</Button >
                 </div >
             </div >
+            {errors && <ValidationErrors errors={errors} />}
         </>
     )
 }

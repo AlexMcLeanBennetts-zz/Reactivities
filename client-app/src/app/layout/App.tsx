@@ -7,6 +7,8 @@ import { ToastContainer } from 'react-toastify';
 
 import AppLayout from './AppLayout';
 import TestErrors from 'features/errors/TestError';
+import NotFound from 'features/errors/NotFound';
+import ServerError from 'features/errors/ServerError';
 
 
 
@@ -32,6 +34,8 @@ function App() {
             element: <ActivityForm />
           })}
           <Route path='/errors' element={<TestErrors />} />
+          <Route path='/server-error' element={<ServerError />} />
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
 

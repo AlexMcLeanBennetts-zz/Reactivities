@@ -1,21 +1,22 @@
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import './index.css';
 import App from './app/layout/App';
 import { store, StoreContext } from 'app/stores/store';
+import { CustomRouter } from 'app/utilities/customRouter';
+import customHistory from 'app/utilities/history';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <StoreContext.Provider value={store}>
-    <Router>
+    <CustomRouter history={customHistory}>
       <App />
-    </Router>
+    </CustomRouter>
   </StoreContext.Provider>
 );
 

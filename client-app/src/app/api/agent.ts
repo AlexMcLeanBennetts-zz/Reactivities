@@ -1,5 +1,8 @@
 import { IActivity } from "app/models/activity";
-import axios, { AxiosResponse } from "axios";
+import { store } from "app/stores/store";
+import customHistory from "app/utilities/history";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { toast } from 'react-toastify';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -10,13 +13,51 @@ const sleep = (delay: number) => {
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
 axios.interceptors.response.use(async response => {
-    try {
-        await sleep(500);
-        return response;
-    } catch (error) {
-        console.log(error);
-        return await Promise.reject(error);
+    await sleep(500);
+    return response;
+
+}, error => {
+    const { data, status, config } = error.response!;
+
+
+    switch (status) {
+        case 400:
+            if (typeof data === 'string') {
+                toast.error('This is a bad request');
+            }
+            if (config.method === 'get' && data.errors.hasOwnProperty('id')) {
+                customHistory.push('/not-found')
+            }
+            if (data.errors) {
+                const modalStateErrors = [];
+                for (const key in data.errors) {
+                    if (data.errors[key]) {
+                        if (data.errors[key].length > 1) {
+                            modalStateErrors.push(data.errors[key][1]);
+                        } else {
+                            modalStateErrors.push(data.errors[key]);
+                        }
+
+                    }
+                }
+                throw modalStateErrors.flat();
+            }
+            break;
+        case 401:
+            toast.error('unauthorised');
+            break;
+        case 404:
+            customHistory.push('/not-found');
+            break;
+        case 500:
+            store.commonStore.setServerError(data);
+            customHistory.push('/server-error');
+            break;
     }
+    return Promise.reject(error);
+
+
+
 })
 const responseBody = <T>(respose: AxiosResponse<T>) => respose.data;
 
