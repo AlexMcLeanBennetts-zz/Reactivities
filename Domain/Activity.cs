@@ -12,5 +12,4 @@ namespace Domain
 		public string City { get; set; }
 		public string Venue { get; set; }
 	}
-
 }
