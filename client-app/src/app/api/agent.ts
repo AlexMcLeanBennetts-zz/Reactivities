@@ -1,7 +1,7 @@
 import { IActivity } from "app/models/activity";
 import { store } from "app/stores/store";
 import customHistory from "app/utilities/history";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { toast } from 'react-toastify';
 
 const sleep = (delay: number) => {

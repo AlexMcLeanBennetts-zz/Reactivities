@@ -32,7 +32,7 @@ describe('when there are multiple events', () => {
         let newEvent: IActivity = {
             category: "culture",
             city: "London",
-            date: "2022-07-27T13:38:11.3218859",
+            date: new Date("2022-07-27T13:38:11.3218859"),
             description: "Activity 1 month in future",
             id: "00b8ef53-e630-4f27-bad3-734d4c9ee7d6",
             title: "Future Activity 1",

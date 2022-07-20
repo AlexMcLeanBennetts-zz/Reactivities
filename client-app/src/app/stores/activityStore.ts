@@ -1,5 +1,6 @@
 import agent from "app/api/agent";
 import { IActivity } from "app/models/activity";
+import { format } from "date-fns";
 import { makeAutoObservable, runInAction } from "mobx";
 
 
@@ -8,7 +9,7 @@ export default class ActivityStore {
     selectedActivity: IActivity | undefined = undefined;
     editMode = false;
     loading = false;
-    loadingInitial = true;
+    loadingInitial = false;
 
     constructor() {
         makeAutoObservable(this)
@@ -16,13 +17,13 @@ export default class ActivityStore {
 
     get activitiesByDate() {
         return Array.from(this.activityRegistry.values()).sort((a, b) =>
-            Date.parse(a.date) - Date.parse(b.date));
+            a.date!.getTime() - b.date!.getTime());
     }
 
     get groupedActivities() {
         return Object.entries(
             this.activitiesByDate.reduce((activities, activity) => {
-                const date = activity.date;
+                const date = format(activity.date!, 'dd MMM yyyy');
                 activities[date] = activities[date] ? [...activities[date], activity] : [activity];
                 return activities;
             }, {} as { [key: string]: IActivity[] })
@@ -70,7 +71,7 @@ export default class ActivityStore {
     }
 
     private setActivity = (activity: IActivity) => {
-        activity.date = activity.date.split('T')[0];
+        activity.date = new Date(activity.date!)
         this.activityRegistry.set(activity.id, activity);
     }
 
@@ -79,6 +80,7 @@ export default class ActivityStore {
     createActivity = async (activity: IActivity) => {
         this.loading = true;
         try {
+            console.log(activity);
             await agent.Activities.create(activity);
             runInAction(() => {
                 this.activityRegistry.set(activity.id, activity);
@@ -95,6 +97,7 @@ export default class ActivityStore {
     updateActivity = async (activity: IActivity) => {
         this.loading = true;
         try {
+            console.log(activity);
             await agent.Activities.update(activity);
             runInAction(() => {
                 this.activityRegistry.set(activity.id, activity);

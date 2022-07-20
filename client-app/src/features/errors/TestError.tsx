@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Button from 'features/components/Button';
+import Button from 'common/Button';
 import { useState } from 'react';
 import ValidationErrors from './ValidationErrors';
 

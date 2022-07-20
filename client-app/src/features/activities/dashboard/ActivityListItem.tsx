@@ -1,5 +1,6 @@
 import { IActivity } from "app/models/activity";
-import Button from "features/components/Button";
+import Button from "common/Button";
+import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -25,7 +26,7 @@ function ActivityListItem({ activity }: Props) {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    {activity.date}
+                    {format(activity.date!, 'dd MMM yyyy h:mm aa')}
                 </span>
                 <span className="inline">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor">

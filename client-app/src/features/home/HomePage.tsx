@@ -1,4 +1,4 @@
-import Button from "features/components/Button";
+import Button from "common/Button";
 import { Link } from "react-router-dom";
 
 function HomePage() {

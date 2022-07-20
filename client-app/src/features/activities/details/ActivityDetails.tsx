@@ -1,5 +1,5 @@
 import { useStore } from "app/stores/store"
-import Spinner from "features/components/Spinner";
+import Spinner from "common/Spinner";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";

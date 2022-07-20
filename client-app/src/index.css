@@ -18,8 +18,12 @@ body{
     @apply flex flex-col mb-4
 }
 
-.formContainer input, .formContainer textArea{
+.formContainer input, .formContainer textArea, .formContainer select, {
         @apply bg-[#eaeaea] py-2 px-1 rounded-md mt-1
+}
+
+.react-datepicker-wrapper, .react-datepicker-wrapper input {
+    @apply w-full
 }
 
 .ribbon-2 {
