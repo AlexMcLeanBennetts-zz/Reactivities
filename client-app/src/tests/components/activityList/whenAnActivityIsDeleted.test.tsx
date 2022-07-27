@@ -6,10 +6,11 @@ import App from "app/layout/App"
 import { IActivity } from "app/models/activity";
 import testData from "tests/mocks/data/testData";
 import resetServer from "tests/utils/functions/resetServer";
+import renderWithRouter from "tests/utils/setup/renderWithRouter";
 
 describe('An Activity is able to be deleted', () => {
     beforeEach(() => {
-        render(<App />)
+        renderWithRouter(<App />)
     })
     it('There is a delete button on each activity', async () => {
         const deleteButton = await screen.findByRole('button', { name: /delete/i })
