@@ -9,15 +9,32 @@ import AppLayout from './AppLayout';
 import TestErrors from 'features/errors/TestError';
 import NotFound from 'features/errors/NotFound';
 import ServerError from 'features/errors/ServerError';
+import LoginForm from 'features/users/LoginForm';
+import { useStore } from 'app/stores/store';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
+
+import Spinner from '../../common/Spinner'
 
 
 
 
 function App() {
   const location = useLocation();
+  const { commonStore, userStore } = useStore();
+
+  useEffect(() => {
+    if (commonStore.token) {
+      userStore.getUser().finally(() => commonStore.setAppLoaded());
+    } else {
+      commonStore.setAppLoaded();
+    }
+  }, [commonStore, userStore])
 
   const renderMultiRoutes = ({ element: Element, paths, ...rest }: any) =>
     paths.map((path: string) => <Route key={location.key} path={path} {...rest} element={Element} />);
+
+  if (!commonStore.appLoaded) return <Spinner />
 
   return (
 
@@ -35,6 +52,7 @@ function App() {
           })}
           <Route path='/errors' element={<TestErrors />} />
           <Route path='/server-error' element={<ServerError />} />
+          <Route path='/login' element={<LoginForm />} />
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
@@ -44,4 +62,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

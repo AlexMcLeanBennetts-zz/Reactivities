@@ -47,3 +47,7 @@ body{
 .react-calendar {
 @apply w-full border-0 drop-shadow-md rounded-lg
 }
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
