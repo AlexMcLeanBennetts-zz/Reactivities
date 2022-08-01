@@ -15,6 +15,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 
 import Spinner from '../../common/Spinner'
+import ModalContainer from 'common/modals/modalContainer';
 
 
 
@@ -40,6 +41,7 @@ function App() {
 
     <div className="App">
       <ToastContainer position='bottom-right' hideProgressBar />
+      <ModalContainer />
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route element={<AppLayout />}>

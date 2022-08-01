@@ -1,10 +1,11 @@
 import { useStore } from "app/stores/store";
 import Button from "common/Button";
+import LoginForm from "features/users/LoginForm";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
 function HomePage() {
-    const { userStore } = useStore();
+    const { userStore, modalStore } = useStore();
 
 
     return (
@@ -23,10 +24,22 @@ function HomePage() {
 
                 </>
             ) : (
-                <Button type='button' className="bg-white rounded-lg py-2 px-6 font-bold">
-                    <Link to="/login">Login</Link>
-
-                </Button>
+                <>
+                    <Button
+                        type='button'
+                        className="bg-white rounded-lg py-2 w-32 font-bold"
+                        onClick={() => modalStore.openModal(<LoginForm />)}
+                    >
+                        Login
+                    </Button>
+                    <Button
+                        type='button'
+                        className="bg-white rounded-lg py-2 w-32 font-bold mt-4"
+                        onClick={() => modalStore.openModal(<LoginForm />)}
+                    >
+                        Register
+                    </Button>
+                </>
             )}
         </div>
     )
