@@ -1,14 +1,14 @@
 interface Props {
-    errors: string[] | null
+    errors: any
 }
 
 function ValidationErrors({ errors }: Props) {
     return (
-        <div className="bg-red-200 py-2 px-7 mt-5 rounded-lg">
+        <div className="bg-red-200 py-2 px-7 my-5 rounded-lg">
             {errors && (
                 <ul>
 
-                    {errors.map((error: any, i) => (
+                    {errors.map((error: any, i: any) => (
                         <li
                             key={i}
                             className="list-disc"

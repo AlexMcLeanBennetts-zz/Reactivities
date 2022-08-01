@@ -1,6 +1,7 @@
 import { useStore } from "app/stores/store";
 import Button from "common/Button";
 import LoginForm from "features/users/LoginForm";
+import RegisterForm from "features/users/RegisterForm";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
@@ -35,7 +36,7 @@ function HomePage() {
                     <Button
                         type='button'
                         className="bg-white rounded-lg py-2 w-32 font-bold mt-4"
-                        onClick={() => modalStore.openModal(<LoginForm />)}
+                        onClick={() => modalStore.openModal(<RegisterForm />)}
                     >
                         Register
                     </Button>
