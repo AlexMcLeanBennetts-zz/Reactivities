@@ -8,6 +8,8 @@ import ActivityDetailsHeader from "./ActivityDetailsHeader";
 import ActivityDetailsInfo from "./ActivityDetailsInfo";
 import ActivityDetailsSidebar from "./ActivityDetailsSidebar";
 
+
+
 function ActivityDetails() {
 
     const { activityStore } = useStore();
@@ -32,7 +34,7 @@ function ActivityDetails() {
                 <ActivityDetailsChat />
             </div>
             <div className="w-4/12">
-                <ActivityDetailsSidebar />
+                <ActivityDetailsSidebar activity={activity} />
             </div>
 
         </section>

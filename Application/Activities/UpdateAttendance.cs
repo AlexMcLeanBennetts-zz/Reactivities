@@ -44,16 +44,16 @@ namespace Application.Activities
 
                 if (user == null) return null;
 
-                var hostUserName = activity.Attendees.FirstOrDefault(x => x.IsHost)?.AppUser?.UserName;
+                var hostUsername = activity.Attendees.FirstOrDefault(x => x.IsHost)?.AppUser?.UserName;
 
                 var attendance = activity.Attendees.FirstOrDefault(x => x.AppUser.UserName == user.UserName);
 
-                if (attendance != null && hostUserName == user.UserName)
+                if (attendance != null && hostUsername == user.UserName)
                 {
                     activity.IsCancelled = !activity.IsCancelled;
                 }
 
-                if (attendance != null && hostUserName != user.UserName)
+                if (attendance != null && hostUsername != user.UserName)
                 {
                     activity.Attendees.Remove(attendance);
                 }

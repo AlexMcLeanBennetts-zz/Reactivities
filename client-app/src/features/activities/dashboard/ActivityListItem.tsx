@@ -2,6 +2,7 @@ import { IActivity } from "app/models/activity";
 import Button from "common/Button";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import ActivityListItemAttendee from "./ActivityListItemAttendee";
 
 interface Props {
     activity: IActivity;
@@ -18,7 +19,13 @@ function ActivityListItem({ activity }: Props) {
                     <Link to={`/activities/${activity.id}`}>
                         <h3 className="text-lg font-bold capitalize">{activity.title}</h3>
                     </Link>
-                    <p className="font-semibold">Hosted by Bob</p>
+                    <p className="font-semibold">Hosted by {activity.host?.displayName}</p>
+                    {activity.isHost && (
+                        <p className="mt-2 p-2 text-sm border-2 rounded-lg text-orange-400 border-orange-400">You are hosting this activity</p>
+                    )}
+                    {activity.isGoing && !activity.isHost && (
+                        <p className="mt-2 p-2 text-sm border-2 rounded-lg text-green-500 border-green-500">You are going to this activity</p>
+                    )}
                 </div>
             </div>
             <div className="px-8 py-4">
@@ -36,7 +43,7 @@ function ActivityListItem({ activity }: Props) {
                 </span>
             </div>
             <div className="py-4 px-8 bg-gray-200">
-                <p className="text-sm text-gray-700">Attendees go here</p>
+                <ActivityListItemAttendee attendees={activity.attendees!} />
             </div>
             <div className="flex justify-between px-8 py-4">
                 <div>{activity.description}</div>
