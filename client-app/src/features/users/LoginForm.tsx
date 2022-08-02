@@ -1,7 +1,7 @@
 import { useStore } from "app/stores/store";
 import Button from "common/Button"
 import TextInput from "common/form/TextInput"
-import SingleValidationError from "features/errors/SingleValidationErrror";
+import ValidationErrors from "features/errors/ValidationErrors";
 import { Form, Formik } from "formik"
 import { observer } from "mobx-react-lite";
 
@@ -18,7 +18,7 @@ function LoginForm() {
                     <h1 className="text-2xl font-bold text-[#20a7ac] pb-2">Login to Reactivities</h1>
                     <TextInput name="email" label="Email" />
                     <TextInput name="password" label="Password" type="password" />
-                    {errors.error && <SingleValidationError error={errors.error} />}
+                    {errors.error && <ValidationErrors errors={errors.error} />}
                     <Button className="bg-[#20a7ac] w-full py-2 rounded-lg text-white font-bold" type="submit" isLoading={isSubmitting}>Login</Button>
                 </Form>
             )}
