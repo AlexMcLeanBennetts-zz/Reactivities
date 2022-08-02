@@ -1,5 +1,7 @@
 ﻿using Application.Activities;
 using Application.Core;
+using Application.Interfaces;
+using Infrastructure.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -9,7 +11,7 @@ namespace API.Extensions
 {
     public static class ApplicationServiceExtensions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services, 
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services,
             IConfiguration config)
         {
             services.AddSwaggerGen(c =>
@@ -29,6 +31,7 @@ namespace API.Extensions
             });
             services.AddMediatR(typeof(List.Hander).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddScoped<IUserAccessor, UserAccessor>();
 
             return services;
         }
