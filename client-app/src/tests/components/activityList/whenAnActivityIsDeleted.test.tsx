@@ -30,7 +30,7 @@ describe('An Activity is able to be deleted', () => {
 describe('when there are multiple events', () => {
     it('Deleting one event does not delete them all', async () => {
         let response: IActivity[] = testData;
-        let newEvent: IActivity = {
+        let eventData = {
             category: "culture",
             city: "London",
             date: new Date("2022-07-27T13:38:11.3218859"),
@@ -39,6 +39,7 @@ describe('when there are multiple events', () => {
             title: "Future Activity 1",
             venue: "Natural History Museum",
         }
+        let newEvent = new IActivity(eventData)
         response.push(newEvent);
         resetServer(response);
 

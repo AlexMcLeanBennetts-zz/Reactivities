@@ -35,7 +35,7 @@ describe('When there is data', () => {
 })
 it('when there is multiple events it renders each one to the screen', async () => {
     let response: IActivity[] = testData;
-    let newEvent: IActivity = {
+    let eventData = {
         category: "culture",
         city: "London",
         date: new Date("2022-07-27T13:38:11.3218859"),
@@ -44,6 +44,7 @@ it('when there is multiple events it renders each one to the screen', async () =
         title: "Future Activity 1",
         venue: "Natural History Museum",
     }
+    let newEvent = new IActivity(eventData);
     response.push(newEvent);
     resetServer(response);
 

@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { IActivity } from "app/models/activity";
+import { ActivityFormValues, IActivity } from "app/models/activity";
 import { useStore } from "app/stores/store";
 import Button from "common/Button";
 import Spinner from "common/Spinner";
@@ -35,31 +35,18 @@ function AcitvityForm() {
         date: Yup.string().required('Date is required').nullable(),
     })
 
-    const initialState: IActivity = {
-        id: '',
-        title: '',
-        description: '',
-        category: '',
-        date: null,
-        city: '',
-        venue: ''
-    }
-
-    const [formState, setFormState] = useState<IActivity>(initialState);
+    const [formState, setFormState] = useState<ActivityFormValues>(new ActivityFormValues());
 
     useEffect(() => {
         if (id) {
             loadActivity(id)
-                .then(activity => setFormState(activity!))
-        } else {
-            setFormState(initialState)
+                .then(activity => setFormState(new ActivityFormValues(activity)))
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, loadActivity])
 
 
-    const handleFormSubmit = (activity: IActivity) => {
-        if (formState.id === '') {
+    const handleFormSubmit = (activity: ActivityFormValues) => {
+        if (formState.id) {
             let newActivity = {
                 ...activity,
                 id: uuid()
@@ -98,7 +85,7 @@ function AcitvityForm() {
                             <Button
                                 type="submit"
                                 className="w-5/12 border-2 rounded-md border-green-500  bg-green-500 text-white py-1"
-                                isLoading={loading}
+                                isLoading={isSubmitting}
                                 disabled={!isValid || !dirty || isSubmitting}
                             >
                                 Submit

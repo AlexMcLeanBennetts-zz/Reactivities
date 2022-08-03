@@ -1,6 +1,6 @@
 import { IActivity } from '../../../app/models/activity'
 
-const testData: IActivity[] = [{
+const testData: IActivity[] = [new IActivity({
 
     category: "music",
     city: "London",
@@ -10,6 +10,6 @@ const testData: IActivity[] = [{
     title: "Future Activity 2",
     venue: "O2 Arena",
 
-}]
+})]
 
 export default testData;
