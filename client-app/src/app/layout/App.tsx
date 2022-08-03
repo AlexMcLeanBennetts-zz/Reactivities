@@ -16,6 +16,7 @@ import { useEffect } from 'react';
 
 import Spinner from '../../common/Spinner'
 import ModalContainer from 'common/modals/modalContainer';
+import { withLDProvider } from 'launchdarkly-react-client-sdk';
 
 
 
@@ -64,4 +65,11 @@ function App() {
   );
 }
 
-export default observer(App);
+export default withLDProvider({
+  clientSideID: '62e785971798a111ff8f6322',
+  user: {
+    "key": "example_user",
+    "name": "Example user",
+    "email": "User@example.com"
+  }
+})(observer(App));
