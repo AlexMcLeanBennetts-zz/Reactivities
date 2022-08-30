@@ -12,8 +12,11 @@ function ActivityListItem({ activity }: Props) {
 
 
     return (
-        <li key={activity.id} className="py-5 bg-white divide-y rounded-lg border-2 border-gray-300 mb-5 drop-shadow-md">
-            <div className="flex gap-5 px-8 pb-4">
+        <li key={activity.id} className="pb-5 bg-white divide-y rounded-lg border-2 border-gray-300 mb-5 drop-shadow-md">
+            {activity.isCancelled &&
+                <div className="z-10 bg-red-500 text-white w-full text-center font-bold py-1 rounded-t-lg"><p>Cancelled</p></div>
+            }
+            <div className="flex gap-5 px-8 py-4">
                 <div><img src="images/user.png" alt="User" className="rounded-full w-20" /></div>
                 <div>
                     <Link to={`/activities/${activity.id}`}>

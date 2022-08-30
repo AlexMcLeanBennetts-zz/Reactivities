@@ -41,7 +41,8 @@ body{
   background: rgb(234 88 12);
   box-shadow: 0 calc(-1*var(--f)) 0 inset #0005;
   font-weight: 700;
-  font-size: 13px
+  font-size: 13px;
+  z-index: 100;
 }
 
 .react-calendar {

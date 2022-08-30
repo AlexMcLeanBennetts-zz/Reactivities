@@ -20,7 +20,7 @@ interface Props {
 export default function Button({ onClick, name, type, className, children, isLoading, disabled }: Props) {
     let formattedClassNames = className;
     if (disabled) {
-        formattedClassNames = className + ' bg-gray-400 border-gray-400';
+        formattedClassNames = className + ' !bg-gray-400 !border-gray-400';
     }
 
     return (
