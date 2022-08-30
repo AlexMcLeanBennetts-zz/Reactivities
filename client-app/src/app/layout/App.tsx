@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import HomePage from 'features/home/HomePage';
 import ActivityForm from 'features/activities/form/ActivityForm';
 import ActivityDetails from 'features/activities/details/ActivityDetails';
+
 import { ToastContainer } from 'react-toastify';
 
 import AppLayout from './AppLayout';
@@ -16,7 +17,6 @@ import { useEffect } from 'react';
 
 import Spinner from '../../common/Spinner'
 import ModalContainer from 'common/modals/modalContainer';
-import { withLDProvider } from 'launchdarkly-react-client-sdk';
 
 
 
@@ -25,13 +25,17 @@ function App() {
   const location = useLocation();
   const { commonStore, userStore } = useStore();
 
+
   useEffect(() => {
+
+
     if (commonStore.token) {
       userStore.getUser().finally(() => commonStore.setAppLoaded());
     } else {
       commonStore.setAppLoaded();
     }
   }, [commonStore, userStore])
+
 
   const renderMultiRoutes = ({ element: Element, paths, ...rest }: any) =>
     paths.map((path: string) => <Route key={location.key} path={path} {...rest} element={Element} />);
@@ -65,11 +69,4 @@ function App() {
   );
 }
 
-export default withLDProvider({
-  clientSideID: '62e785971798a111ff8f6322',
-  user: {
-    "key": "example_user",
-    "name": "Example user",
-    "email": "User@example.com"
-  }
-})(observer(App));
+export default observer(App);
