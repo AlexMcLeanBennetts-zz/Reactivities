@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { ActivityFormValues, IActivity } from "app/models/activity";
+import { ActivityFormValues } from "app/models/activity";
 import { useStore } from "app/stores/store";
 import Button from "common/Button";
 import Spinner from "common/Spinner";

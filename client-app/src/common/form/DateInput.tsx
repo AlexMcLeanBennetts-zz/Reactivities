@@ -1,5 +1,5 @@
 import ValidationErrors from "features/errors/ValidationErrors";
-import { ErrorMessage, useField } from "formik";
+import { useField } from "formik";
 import DatePicker, { ReactDatePickerProps } from 'react-datepicker';
 
 function DateInput(props: Partial<ReactDatePickerProps>) {
